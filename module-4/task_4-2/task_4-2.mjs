@@ -113,7 +113,7 @@ const EWeekDays = {
 const keys = Object.keys(EWeekDays);
 
 for (let i4 = 0; i4 < keys.length; i4++){
-    const key = keys[i4]; //Current key, e.g., "WeekDay1"
+    const key = keys[i4]; //Current key, eks, "WeekDay1"
     const day = EWeekDays[key]; //Corresponding object with value and name
 
     printOut(key + ": value = " + day.value + ", name = " + day.name);
