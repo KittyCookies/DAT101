@@ -121,9 +121,9 @@ printOut(newLine);
 printOut("--- Part 5 ----------------------------------------------------------------------------------------------");
 /* Put your code below here!*/
 
+myAccount.deposit(150)
 
 
-printOut("Replace this with you answer!");
 printOut(newLine);
 
 printOut("--- Part 6 ----------------------------------------------------------------------------------------------");
