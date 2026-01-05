@@ -115,7 +115,7 @@ printOut(newLine);
 printOut("--- Part 7 ----------------------------------------------------------------------------------------------");
 /* Put your code below here!*/
 
-for(let i = 0; i < 5; i++) {
+for(let dice = 1; dice <= 6; dice++) {
 
   Math.floor(Math.random() * 6) + 1;
 
