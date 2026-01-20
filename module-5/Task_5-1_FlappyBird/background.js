@@ -20,7 +20,7 @@ export class TBackground{
         if(x < 5){
             this.spriteGround.x = 0;
         }else {
-        this.spriteGround.x--;
+        this.spriteGround.x-=5;
         }
         
     }
