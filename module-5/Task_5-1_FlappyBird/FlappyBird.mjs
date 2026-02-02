@@ -12,6 +12,7 @@ const chkMuteSound = document.getElementById("chkMuteSound");
 const rbDayNight = document.getElementsByName("rbDayNight");
 const cvs = document.getElementById("cvs");
 const spcvs = new TSpriteCanvas(cvs);
+let obstaclePassed = false;
 
 // prettier-ignore
 const SpriteInfoList = {
@@ -31,14 +32,14 @@ const SpriteInfoList = {
   medal:        { x: 985 , y: 635 , width: 44   , height: 44  , count: 4  },
 };
 
-export const EGameStatus = { idle: 0, gaming: 1, heroIsDead: 2, gameOver: 3,
+export const EGameStatus = { idle: 0, countDown: 1, gaming: 2, heroIsDead: 3, gameOver: 4,
   state: 0
 };
 const background = new TBackground(spcvs, SpriteInfoList);
 export const hero = new THero(spcvs, SpriteInfoList.hero1);
 const obstacles = [];
 const baits = [];
-const menu = new TMenu(spcvs, SpriteInfoList);
+export const menu = new TMenu(spcvs, SpriteInfoList);
 
 
 
@@ -83,6 +84,7 @@ function animateGame(){
   if(eaten >= 0){
     console.log("Eaten!");
     baits.splice(eaten, 1);
+    hero.eat();
   }
 
   if ( EGameStatus.state === EGameStatus.gaming){
@@ -94,6 +96,12 @@ function animateGame(){
     obstacle.animate();
     if(obstacle.x < -50){
       deleteObstacle = true;
+      obstaclePassed = false;
+    } else if((obstacle.x + obstacle.width) < hero.x ){
+      if(!obstaclePassed){
+      menu.incGameScore(1);
+      obstaclePassed = true;
+      }
     }
    }
   
