@@ -1,8 +1,9 @@
 "use strict"
 import { TPoint, TCircle } from "lib2d";
-import { TSprite, TSpriteButton } from "libSprite";
+import { TSprite, TSpriteButton, TSpriteNumber, ESpriteNumberJustifyType } from "libSprite";
 import { TColorButton } from "./colorButton.js";
 import { activateAudioContext } from "libSound";
+import { spawnColorButton } from "./SimonSays.mjs";
 
 export class TGameBoard extends TSprite{
     #colorButtons;
@@ -29,17 +30,32 @@ export class TGameBoard extends TSprite{
         this.#gameInfo.debug = true;
         this.#gameInfo.onClick = this.#gameInfoClick.bind(this);
         this.#disableColorButtons(true);
-        this.#isSoundEnabled = false; 
+        this.#isSoundEnabled = false;
+        this.spRound = new TSpriteNumber(aSpcvs, aSPI.number, 405, 385);
+        this.spRound.justify = ESpriteNumberJustifyType.Right;
+        this.spRound.value = 0; 
+    }
+
+    get colorButtons(){
+        return this.#colorButtons;
+    }
+
+    gameOver(){
+        this.#disableColorButtons(true);
+        this.#gameInfo.index = 1;
+        this.#gameInfo.hidden = false;
+        this.#gameInfo.disabled = false;
     }
     draw(){
         super.draw();
-        for(let i=0; i < this.#colorButtons.length; i++){
+        for(let i = 0; i < this.#colorButtons.length; i++){
             const colorButton = this.#colorButtons[i];
             colorButton.draw();
         }
+        this.spRound.draw();
         this.#gameInfo.draw();
     }
-
+     
     #disableColorButtons(aDisable){
         for(let i = 0; i < this.#colorButtons.length; i++){
             const colorButton = this.#colorButtons[i];
@@ -50,12 +66,14 @@ export class TGameBoard extends TSprite{
         this.#gameInfo.disabled = true;
         this.#gameInfo.hidden = true;
         this.#disableColorButtons(false);
-        if(this.#isSoundEnabled === false)
+        if(this.#isSoundEnabled === false){
             activateAudioContext();
             this.#isSoundEnabled = true;
             for(let i=0; i < this.#colorButtons.length; i++){
                 const colorButton = this.#colorButtons[i];
                 colorButton.createSound(i);
             }
+        }
+        spawnColorButton();
     }
 }
