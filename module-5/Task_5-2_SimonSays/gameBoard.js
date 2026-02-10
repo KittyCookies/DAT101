@@ -9,6 +9,7 @@ export class TGameBoard extends TSprite{
     #colorButtons;
     #gameInfo;
     #isSoundEnabled;
+    #spFinalScore;
 
     constructor(aSpcvs, aSPI){
         super(aSpcvs, aSPI.Background, 0, 0);
@@ -33,7 +34,10 @@ export class TGameBoard extends TSprite{
         this.#isSoundEnabled = false;
         this.spRound = new TSpriteNumber(aSpcvs, aSPI.number, 405, 385);
         this.spRound.justify = ESpriteNumberJustifyType.Right;
-        this.spRound.value = 0; 
+        this.spRound.value = 0;
+        this.#spFinalScore = new TSpriteNumber(aSpcvs, aSPI.number, 345, 440);
+        this.#spFinalScore.justify = ESpriteNumberJustifyType.center;
+        this.#spFinalScore.visible = false; 
     }
 
     get colorButtons(){
@@ -45,6 +49,8 @@ export class TGameBoard extends TSprite{
         this.#gameInfo.index = 1;
         this.#gameInfo.hidden = false;
         this.#gameInfo.disabled = false;
+        this.#spFinalScore.value = this.spRound.value;
+        this.#spFinalScore.visible = true;
     }
     draw(){
         super.draw();
@@ -54,6 +60,7 @@ export class TGameBoard extends TSprite{
         }
         this.spRound.draw();
         this.#gameInfo.draw();
+        this.#spFinalScore.draw();
     }
      
     #disableColorButtons(aDisable){
