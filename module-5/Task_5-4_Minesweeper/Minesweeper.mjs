@@ -2,6 +2,7 @@
 import { TPoint } from "lib2d";
 import { TSpriteCanvas } from "libSprite";
 import { TGameBoard } from "./GameBoard.mjs";
+import { createTiles, drawTiles } from "./tile.js";
 
 //-----------------------------------------------------------------------------------------
 //----------- variables and object --------------------------------------------------------
@@ -49,11 +50,13 @@ export function newGame() {
   spcvs.updateBoundsRect();
   spcvs.removeAllGUISprites();
   gameBoard = new TGameBoard(spcvs, SpriteInfoList.Board, new TPoint(0, 0));
+  createTiles(spcvs, SpriteInfoList.ButtonTile);
 }
 
 function drawGame() {
   spcvs.clearCanvas();
   gameBoard.draw();
+  drawTiles();
 }
 
 //-----------------------------------------------------------------------------------------
