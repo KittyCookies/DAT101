@@ -7,25 +7,50 @@
 <body style="display: table-cell; vertical-align: middle;">
 <h2>Task 4.3:</h2>
 <p></p>
+<!--Task 1 Section-->
 <fieldset>
   <legend>Task 1: Rectangle</legend>
-  <label for="txtRectWidth">Width:</label>
-  <input type="number" id="txtRectWidth" value="0" style="width:4em">
-  <label for="txtRectHeight">Height:</label>
-  <input type="number" id="txtRectHeight" value="0" style="width:4em">
-  <input type="button" id="cmbTask1Calculate" value="Calculate">
+  <label for="txtRectWidth">
+    Width:
+  </label>
+  <input type="number" 
+          id="txtRectWidth" 
+          value="0" 
+          style="width:4em">
+  <label for="txtRectHeight">
+    Height:
+  </label>
+  <input type="number" 
+          id="txtRectHeight" 
+          value="0" 
+          style="width:4em">
+  <input type="button" 
+          id="cmbTask1Calculate" 
+          value="Calculate">
   <p id="txtTask1Output">
     Circumference = 0, Area = 0
   </p>
 </fieldset>
+<!--End of Task 1 Section-->
 <p></p>
+<!--Task 2 Section-->
 <fieldset>
   <legend>Task 2: Text</legend>
-  <label for="txtTask2Word">Type a word:</label>
-  <input type="text" id="txtTask2Word" value="" style="width: 10em"> (hit enter!)
-  <p id="txtTask2Output">Number of words = 0</p>
+  <label for="txtTask2Word">
+    Type a word:
+  </label>
+  <input type="text" 
+          id="txtTask2Word" 
+          value="" 
+          style="width: 10em"> 
+          (hit enter!)
+  <p id="txtTask2Output">
+    Number of words = 0
+  </p>
 </fieldset>
+<!--End of Task 2 Section-->
 <p></p>
+<!--Task 3 Section-->
 <fieldset>
   <legend>Task 3: Text</legend>
   <p>Check one or more as you please</p>
@@ -37,7 +62,9 @@
   <input type="button" id="cmbTask3CheckAnswer" value="Check Answer!"><br/>
   <p id="txtTask3Output"></p>
 </fieldset>
+<!--End of Task 3 Section-->
 <p></p>
+<!--Task 4 Section-->
 <fieldset>
   <legend>Task 4: Cars</legend>
   <p>Please select your favorite car brand!</p>
@@ -45,7 +72,9 @@
   </div>
   <p id="txtTask4Output"></p>
 </fieldset>
+<!--End of Task 4 Section-->
 <p></p>
+<!--Task 5 Section-->
 <fieldset>
   <legend>Task 5: Animals</legend>
   <label for="selectTask5Animals">Choose a animal:</label>
@@ -61,7 +90,9 @@
   </select>
   <p id="txtTask5Output"></p>
 </fieldset>
+<!--End of Task 5 Section-->
 <p></p>
+<!--Task 6 Section-->
 <fieldset>
   <legend>Task 6: Names</legend>
   <label for="selectTask6Girls">Choose a name:</label>
@@ -69,7 +100,9 @@
   </select>
   <p id="txtTask6Output">You selected: </p>
 </fieldset>
+<!--End of Task 6 Section-->
 <p></p>
+<!--Task 7 Section-->
 <fieldset>
   <legend>Task 7: Movies</legend>
   <label for="txtMovieTitle">Title: </label>
@@ -96,24 +129,28 @@
     </table>
   </div>
 </fieldset>
+<!--End of Task 7 Section-->
+
+<!--Questions To Answer-->
 <ol>
   <li>[In this assignment, we use the DOM. Explain how this library 
     can help us develop interactive web pages.]</li>
-  <p>[Write your answer here, and copy this for more answers]</p>
+  <p>DOM provides a structured representation of the page and an API to manipulate it. Basically, without DOM, Javascript wouldn't be able to interact with page elements like buttons, tables, or dropdowns.</p>
 
     <li>[What is an event? Simply explain what happens 
       when we add an event listener to an object.]</li>
-  <p>[Write your answer here, and copy this for more answers]</p>
+  <p>An event makes it so the user can interact with the object (for eksample, clicking on it)</p>
 
     <li>[Sometimes we need to use an event object to get data from the event. 
       Explain how this event object is structured, don't explain all functions or attributes. 
       Try to explain, for example, how to retrieve data from a keyboard or mouse.]</li>
-  <p>[Write your answer here, and copy this for more answers]</p>
+  <p>When an event occurs, the browser creates an event object that contains information about that spesific event. This object includes common properties like the event type and the element that triggered it, and event-spesific data as which key was pressed on the keyboard or where the mouse clicked. Using the event object allows our code to react based on the details of the user's action.</p>
 
     <li>[Explain the main difference between DOM id and DOM name. 
       Can we have identical IDs?]</li>
-  <p>[Write your answer here, and copy this for more answers]</p>
+  <p>The main difference of these two are: DOM id is meant to be unique in the entire HTML page, while DOM name is not required to be unique.<br>And no, we can't have identical IDs on the same page, as only the first element will be selected while others get ignored.</p>
 </ol>
+<!--End of Questions To Answer-->
 <script type="module" src="./task_4-3.mjs" defer></script>
 </body>
 </html>
