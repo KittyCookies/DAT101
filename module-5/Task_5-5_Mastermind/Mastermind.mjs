@@ -29,9 +29,10 @@
 // We are bringing in the TSpriteCanvas from our custom libSprite engine.
 // This is the powerhouse that handles all our drawing and event listening! 🚂
 
-import { TSpriteCanvas } from "libSprite";
+import { TSpriteCanvas, TSprite } from "libSprite";
 import { TMenu } from "./menu.js";
-
+import { TColorPicker } from "./colorPicker.js";
+import { MastermindBoard } from "./MastermindBoard.mjs";
 // --------------------------------------------------------------------------------------------------------------------
 // 🗄️ 2. Variables, Constants, and Game Objects
 // --------------------------------------------------------------------------------------------------------------------
@@ -53,6 +54,9 @@ export const SpriteInfoList = {
 const cvs = document.getElementById("cvs");
 export const spcvs = new TSpriteCanvas(cvs);
 export let menu = null;
+export let colorPickers = [];
+export let computerAnswers = [];
+
 // --------------------------------------------------------------------------------------------------------------------
 // ⚙️ 3. Game Functions
 // --------------------------------------------------------------------------------------------------------------------
@@ -66,6 +70,38 @@ export function newGame() {
   // TODO: Generate a new secret code for the computer.
   // TODO: Create the draggable color picker pegs for the menu.
   menu = new TMenu();
+  createColorPickers();
+  createComputerAnswers();
+}
+
+function createComputerAnswers(){
+  const colors = SpriteInfoList.ColorPicker.count;
+  for(let i = 0; i < 4; i++){
+    const colorIndex = Math.floor(Math.random() * colors);
+    const x = MastermindBoard.ComputerAnswer[i].x;
+    const y = MastermindBoard.ComputerAnswer[i].y;
+    const spColor = new TSprite(spcvs, SpriteInfoList.ColorPicker, x, y);
+    spColor.index = colorIndex;
+    computerAnswers.push(spColor);
+  }
+}
+
+function createColorPickers(){
+  const keys = Object.keys(MastermindBoard.ColorPicker);
+  for(let i = 0; i < keys.length; i++){
+    const key = keys[i];
+    const pos = MastermindBoard.ColorPicker[key];
+    const newColorPicker = new TColorPicker(pos);
+    newColorPicker.index = i;
+    colorPickers.push(newColorPicker);
+  }
+}
+
+function drawColorPickers(){
+  for(let i = 0; i < colorPickers.length; i++){
+    const colorPicker = colorPickers[i];
+    colorPicker.draw();
+  }
 }
 
 function drawGame() {
@@ -78,9 +114,18 @@ function drawGame() {
   // Example order: Background -> Computer's Answer -> Player's Pegs -> Menu GUI.
 
   // TODO: Loop through your arrays and call .draw() on your sprites!
-  menu.drawBackground();
 
+  menu.drawBackground();
+  drawComputerAnswers();
   menu.draw();
+  drawColorPickers();
+}
+
+function drawComputerAnswers(){
+  for(let i = 0; i < computerAnswers.length; i++){
+    const spColor = computerAnswers[i];
+    spColor.draw();
+  }
 }
 
 // --------------------------------------------------------------------------------------------------------------------
