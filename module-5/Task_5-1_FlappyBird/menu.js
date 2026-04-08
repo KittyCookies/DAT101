@@ -64,4 +64,15 @@ export class TMenu{
     setTimeout(this.countDown.bind(this), 1000);
   }
 
+  //My adding for the Task
+  setSoundMute(aIsMuted){
+    if(!this.#sfRunning) return; {
+    if(aIsMuted){
+      this.#sfRunning.pause(); //Pauses the sound
+    }else{
+      this.#sfRunning.play(); //Plays the sound
+    } //I am stuck...
+  }
+  }
+  
 }

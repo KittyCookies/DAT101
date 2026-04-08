@@ -40,7 +40,8 @@ export const hero = new THero(spcvs, SpriteInfoList.hero1);
 const obstacles = [];
 const baits = [];
 export const menu = new TMenu(spcvs, SpriteInfoList);
-
+// My adding for the Task
+export let soundMuted = false;
 
 
 //--------------- Functions ----------------------------------------------//
@@ -156,7 +157,12 @@ function onKeyDown(aEvent) {
 
 function setSoundOnOff(){
   // Mute or unmute the game sound based on checkbox
+  
+  // My adding for the Task
+  let isMuted = chkMuteSound.checked;
+  soundMuted = isMuted;
 
+  menu.setSoundMute(soundMuted); // tells the menu to pause/play the sound.
 } // end of setSoundOnOff
 
 function setDayNight(aEvent){ 
