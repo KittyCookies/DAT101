@@ -77,7 +77,9 @@ export class TMenu{
   setSoundMute(aIsMuted){
   setSoundMuted(aIsMuted);
 
+  //Mutes the game after clicking play !!
   if(this.#sfRunning){
+
     if(aIsMuted){
       this.#sfRunning.pause();
     } else {
@@ -98,6 +100,7 @@ export class TMenu{
     }
     console.log("SoundMuted:" , aIsMuted);
   }
+  //End of this
 
 }
   

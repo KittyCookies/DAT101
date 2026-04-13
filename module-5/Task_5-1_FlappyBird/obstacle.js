@@ -65,6 +65,17 @@ export class TObstacle{
             hero.flap(); // Last flap of death !
             hero.dead();
         }
-
     }
+    
+    setDayNight(isDay){
+        
+    if(isDay){
+      this.#spDown.index = 2;
+      this.#spUp.index = 3;
+    }else{
+      this.#spDown.index = 0;
+      this.#spUp.index = 1;
+    }
+  }
+
 }// End of class TObstacle

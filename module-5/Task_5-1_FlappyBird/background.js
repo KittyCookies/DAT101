@@ -8,11 +8,12 @@ export class TBackground{
         this.spriteBackground = new TSprite(aSpcvs, aSPI.background, 0, 0);
         const groundPosY = aSPI.background.height - aSPI.ground.height;
         this.spriteGround = new TSprite(aSpcvs, aSPI.ground, 0, groundPosY);
+        // this.background.setDayNight(isDay);
     }
     
     draw(){
-    //this.#spriteBackground.draw();
-    //this.#spriteGround.draw();
+    this.spriteBackground.draw();
+    this.spriteGround.draw();
     }
 
     animate(){
@@ -22,6 +23,9 @@ export class TBackground{
         }else {
         this.spriteGround.x-=5;
         }
-        
+    }
+    setDayNight(isDay){
+        this.spriteBackground.index = isDay ? 0 : 1;
+        console.log("Time Switch!");
     }
 }

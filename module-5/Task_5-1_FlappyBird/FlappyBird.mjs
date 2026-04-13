@@ -142,6 +142,8 @@ function loadGame() {
 
   //Start animate engine
   setInterval(animateGame, 1);
+
+  setDayNight({ target: { value: "1" } });
 } // end of loadGame
 
 
@@ -160,7 +162,7 @@ function setSoundOnOff(){
   
   // My adding for the Task
   let isMuted = chkMuteSound.checked;
-  menu.setSoundMute(!soundMuted); // tells the menu to pause/play the sound.
+  menu.setSoundMute(isMuted); // tells the menu to pause/play the sound.
 } // end of setSoundOnOff
 
 export function setSoundMuted(value){
@@ -172,8 +174,16 @@ function setDayNight(aEvent){
   // Set day or night mode based on radio buttons
   // Day mode is when value is 1, night mode is 0, you can use this as a boolean, 1=true, 0=false
   // e.g., isDayMode = (aEvent.target.value == 1);
-  console.log(`Day/Night mode changed: ${aEvent.target.value}`);
 
+  const isDay = Number(aEvent.target.value) === 1;
+
+  background.setDayNight(isDay);
+
+  for (let obstacle of obstacles) {
+    obstacle.setDayNight(isDay);
+  }
+
+  console.log(`Day/Night mode changed: ${aEvent.target.value}`);
 } // end of setDayNight
 
 //--------------- Main Code ----------------------------------------------//
