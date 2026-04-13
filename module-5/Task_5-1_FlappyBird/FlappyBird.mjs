@@ -44,6 +44,7 @@ export const menu = new TMenu(spcvs, SpriteInfoList);
 export let soundMuted = false;
 
 
+
 //--------------- Functions ----------------------------------------------//
 export function startGame(){
   EGameStatus.state = EGameStatus.gaming;
@@ -154,16 +155,18 @@ function onKeyDown(aEvent) {
       break;
   }
 } // end of onKeyDown
-
 function setSoundOnOff(){
   // Mute or unmute the game sound based on checkbox
   
   // My adding for the Task
   let isMuted = chkMuteSound.checked;
-  soundMuted = isMuted;
-
-  menu.setSoundMute(soundMuted); // tells the menu to pause/play the sound.
+  menu.setSoundMute(!soundMuted); // tells the menu to pause/play the sound.
 } // end of setSoundOnOff
+
+export function setSoundMuted(value){
+  soundMuted = value;
+}
+
 
 function setDayNight(aEvent){ 
   // Set day or night mode based on radio buttons

@@ -1,6 +1,6 @@
 "use strict";
 import { TSprite, TSpriteButton, TSpriteNumber } from "libSprite";
-import { startGame } from "./FlappyBird.mjs";
+import { startGame, setSoundMuted, soundMuted } from "./FlappyBird.mjs";
 import { TSoundFile } from "libSound";
 
 const fnCountDown = "./Media/countDown.mp3";
@@ -47,7 +47,11 @@ export class TMenu{
       this.#spCountDown.visible = false;
       startGame();
       this.#sfRunning = new TSoundFile(fnRunning);
+
+      if(!soundMuted){
       this.#sfRunning.play();
+      }
+
     }else{
       setTimeout(this.countDown.bind(this), 1000);
     }
@@ -55,24 +59,45 @@ export class TMenu{
 
   spPlayBtnClick(){
     console.log("Click!");
+
+    // this.setSoundMute(true); //Forces the game to mute
+
     this.#spPlayBtn.hidden = true;
     this.#spTitle.hidden = true;
     this.#spCountDown.visible = true;
     this.#spCountDown.value = 3;
     this.#sfCountDown = new TSoundFile(fnCountDown);
-    this.#sfCountDown.play();
+    if(!soundMuted){
+      this.#sfCountDown.play();
+    }
     setTimeout(this.countDown.bind(this), 1000);
   }
 
   //My adding for the Task
   setSoundMute(aIsMuted){
-    if(!this.#sfRunning) return; {
+  setSoundMuted(aIsMuted);
+
+  if(this.#sfRunning){
     if(aIsMuted){
-      this.#sfRunning.pause(); //Pauses the sound
-    }else{
-      this.#sfRunning.play(); //Plays the sound
-    } //I am stuck...
+      this.#sfRunning.pause();
+    } else {
+      if(!soundMuted){
+      this.#sfRunning.play();
+      }
+    }
   }
+
+  if(this.#sfCountDown){
+    if(aIsMuted){
+      this.#sfCountDown.pause();
+    } else {
+        if(!soundMuted){
+          this.#sfCountDown.play();
+        }
+      }
+    }
+    console.log("SoundMuted:" , aIsMuted);
   }
-  
+
 }
+  
