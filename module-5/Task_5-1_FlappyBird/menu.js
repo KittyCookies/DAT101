@@ -1,6 +1,6 @@
 "use strict";
 import { TSprite, TSpriteButton, TSpriteNumber } from "libSprite";
-import { startGame, setSoundMuted, soundMuted } from "./FlappyBird.mjs";
+import { startGame, setSoundMuted, soundMuted, EGameStatus } from "./FlappyBird.mjs";
 import { TSoundFile } from "libSound";
 
 const fnCountDown = "./Media/countDown.mp3";
@@ -12,7 +12,12 @@ export class TMenu{
   #spCountDown;
   #sfCountDown;
   #sfRunning;
-  #spGameScore
+  #spGameScore;
+  #spGetReady;
+  #spGameOverBoard;
+  #spMedal;
+  #spBestScore;
+  #spFinalScore;
 
   constructor(aSpcvs, aSPI){
     this.#spTitle = new TSprite(aSpcvs, aSPI.flappyBird, 200, 100);
@@ -24,6 +29,21 @@ export class TMenu{
     this.#sfRunning = null;
     this.#spGameScore = new TSpriteNumber(aSpcvs, aSPI.numberSmall, 10, 10);
     this.#spGameScore.alpha = 0.5;
+    //My adding
+    this.#spGetReady = new TSprite(aSpcvs, aSPI.infoText, 190, 100);
+    this.#spGetReady.hidden = true;
+
+    this.#spGameOverBoard = new TSprite(aSpcvs, aSPI.gameOver, 180, 180);
+    this.#spGameOverBoard.hidden = true;
+
+    this.#spMedal = new TSprite(aSpcvs, aSPI.medal, 205, 223);
+    this.#spMedal.hidden = true;
+
+    this.#spBestScore = new TSpriteNumber(aSpcvs, aSPI.numberSmall, 360, 260);
+    this.#spBestScore.visible = false;
+
+    this.#spFinalScore = new TSpriteNumber(aSpcvs, aSPI.numberSmall, 360, 215);
+    this.#spFinalScore.visible = false;
   }
 
   incGameScore(aScore){
@@ -39,6 +59,11 @@ export class TMenu{
     this.#spPlayBtn.draw();
     this.#spCountDown.draw();
     this.#spGameScore.draw();
+    this.#spGetReady.draw();
+    this.#spGameOverBoard.draw();
+    this.#spMedal.draw();
+    this.#spBestScore.draw();
+    this.#spFinalScore.draw();
  
   }
   countDown(){
@@ -46,8 +71,8 @@ export class TMenu{
     if(this.#spCountDown.value <= 0){
       this.#spCountDown.visible = false;
       startGame();
-      this.#sfRunning = new TSoundFile(fnRunning);
 
+      this.#sfRunning = new TSoundFile(fnRunning);
       if(!soundMuted){
       this.#sfRunning.play();
       }
@@ -62,10 +87,20 @@ export class TMenu{
 
     // this.setSoundMute(true); //Forces the game to mute
 
+    EGameStatus.state = EGameStatus.countDown;
+
     this.#spPlayBtn.hidden = true;
     this.#spTitle.hidden = true;
+
+    this.#spGetReady.hidden = false;
+
+    setTimeout(() => {
+      this.#spGetReady.hidden = true;
+    }, 3000);
+    
     this.#spCountDown.visible = true;
     this.#spCountDown.value = 3;
+
     this.#sfCountDown = new TSoundFile(fnCountDown);
     if(!soundMuted){
       this.#sfCountDown.play();
@@ -101,6 +136,30 @@ export class TMenu{
     console.log("SoundMuted:" , aIsMuted);
   }
   //End of this
+
+  showGameOver(){
+    if(EGameStatus.state === EGameStatus.gameOver){
+    //Gameboard Appears
+    this.#spGameOverBoard.hidden = false;
+
+    //Medal Appears
+    this.#spMedal.hidden = false;
+    
+    //Play Button, also moved, x and y changed.
+    this.#spPlayBtn.hidden = false;
+    this.#spPlayBtn.x = 240;
+    this.#spPlayBtn.y = 300;
+
+    //The Score
+    const highScores = [];
+    
+    this.#spBestScore.visible = true;
+    this.#spFinalScore.visible = true;
+
+    console.log("Gameboard!");
+    }
+    
+  }
 
 }
   

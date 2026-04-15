@@ -53,6 +53,9 @@ export class THero extends TSprite{
             EGameStatus.state = EGameStatus.gameOver;
             menu.stopSound();
             this.animationSpeed = 0;
+            
+            menu.showGameOver();
+
             this.#sfGameOver = new TSoundFile(fnGameOver);
 
             if(!soundMuted){

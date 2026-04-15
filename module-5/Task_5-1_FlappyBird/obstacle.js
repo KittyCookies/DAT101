@@ -1,6 +1,6 @@
 "use strict";
 import { TSprite } from "libSprite";
-import { hero, EGameStatus, menu } from "./FlappyBird.mjs";
+import { hero, EGameStatus, menu, isDay } from "./FlappyBird.mjs";
 
 const EasyFlyerGap = 150; // Gap for easy difficulty
 const HardFlyerGap = 100; //Gap for hard difficulty
@@ -32,10 +32,17 @@ export class TObstacle{
          topWithGap = this.#spi.height + top + gap; // Recalculate topWithGap after adjustment
         }
 
+        if(isDay){
         this.#spDown = new TSprite(aSpcvs, aSPI, 600, topWithGap);
         this.#spDown.index = 2;
         this.#spUp = new TSprite(aSpcvs, aSPI, 600, top);
         this.#spUp.index = 3;
+        }else{
+            this.#spDown = new TSprite(aSpcvs, aSPI, 600, topWithGap);
+        this.#spDown.index = 0;
+        this.#spUp = new TSprite(aSpcvs, aSPI, 600, top);
+        this.#spUp.index = 1;
+        }
     }
 
     //Properties
@@ -73,7 +80,7 @@ export class TObstacle{
       this.#spDown.index = 2;
       this.#spUp.index = 3;
     }else{
-      this.#spDown.index = 0;
+      this.#spDown.index = 4;
       this.#spUp.index = 1;
     }
   }

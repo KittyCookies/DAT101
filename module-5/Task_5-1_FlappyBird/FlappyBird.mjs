@@ -13,6 +13,8 @@ const rbDayNight = document.getElementsByName("rbDayNight");
 const cvs = document.getElementById("cvs");
 const spcvs = new TSpriteCanvas(cvs);
 let obstaclePassed = false;
+export let isDay = true;
+
 
 // prettier-ignore
 const SpriteInfoList = {
@@ -87,6 +89,7 @@ function animateGame(){
     console.log("Eaten!");
     baits.splice(eaten, 1);
     hero.eat();
+    menu.incGameScore(1);
   }
 
   if ( EGameStatus.state === EGameStatus.gaming){
@@ -157,6 +160,9 @@ function onKeyDown(aEvent) {
       break;
   }
 } // end of onKeyDown
+
+
+
 function setSoundOnOff(){
   // Mute or unmute the game sound based on checkbox
   
@@ -175,12 +181,12 @@ function setDayNight(aEvent){
   // Day mode is when value is 1, night mode is 0, you can use this as a boolean, 1=true, 0=false
   // e.g., isDayMode = (aEvent.target.value == 1);
 
-  const isDay = Number(aEvent.target.value) === 1;
+  isDay = (aEvent.target.value == 1);
 
   background.setDayNight(isDay);
 
-  for (let obstacle of obstacles) {
-    obstacle.setDayNight(isDay);
+  for (let i = 0; i < obstacles.length; i++){
+    obstacles[i].setDayNight(isDay);
   }
 
   console.log(`Day/Night mode changed: ${aEvent.target.value}`);
