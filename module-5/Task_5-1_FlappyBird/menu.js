@@ -17,6 +17,7 @@ export class TMenu{
   #spGameOverBoard;
   #spMedal;
   #spBestScore;
+  #highScores;
   #spFinalScore;
 
   constructor(aSpcvs, aSPI){
@@ -29,6 +30,9 @@ export class TMenu{
     this.#sfRunning = null;
     this.#spGameScore = new TSpriteNumber(aSpcvs, aSPI.numberSmall, 10, 10);
     this.#spGameScore.alpha = 0.5;
+    this.#spGameScore.digits = 3;
+    this.#spGameScore.leadingZeros = false;
+
     //My adding
     this.#spGetReady = new TSprite(aSpcvs, aSPI.infoText, 190, 100);
     this.#spGetReady.hidden = true;
@@ -39,11 +43,18 @@ export class TMenu{
     this.#spMedal = new TSprite(aSpcvs, aSPI.medal, 205, 223);
     this.#spMedal.hidden = true;
 
-    this.#spBestScore = new TSpriteNumber(aSpcvs, aSPI.numberSmall, 360, 260);
+    this.#spBestScore = new TSpriteNumber(aSpcvs, aSPI.numberSmall, 341, 260);
     this.#spBestScore.visible = false;
+    this.#spBestScore.digits = 3;
+    this.#spBestScore.value = 0;
+    this.#spBestScore.leadingZeros = false;
+    this.#highScores = [];
+    
 
-    this.#spFinalScore = new TSpriteNumber(aSpcvs, aSPI.numberSmall, 360, 215);
+    this.#spFinalScore = new TSpriteNumber(aSpcvs, aSPI.numberSmall, 341, 215);
     this.#spFinalScore.visible = false;
+    this.#spFinalScore.digits = 3;
+    this.#spFinalScore.leadingZeros = false;
   }
 
   incGameScore(aScore){
@@ -64,8 +75,8 @@ export class TMenu{
     this.#spMedal.draw();
     this.#spBestScore.draw();
     this.#spFinalScore.draw();
- 
   }
+  
   countDown(){
     this.#spCountDown.value--;
     if(this.#spCountDown.value <= 0){
@@ -142,8 +153,33 @@ export class TMenu{
     //Gameboard Appears
     this.#spGameOverBoard.hidden = false;
 
-    //Medal Appears
+    this.#highScores.push(this.#spGameScore.value);
+    //HighScore gets stored when GameOver
+    this.#highScores.sort((a, b) => b - a); //The b - a, is highest to low, while a - b is lowest to highest !!
+    this.#highScores = this.#highScores.slice(0, 3);
+    this.#spBestScore.value = this.#highScores[0];
+
+
+    //Medal index depending on score reached.
+    if(this.#spGameScore.value >= 10){
+      this.#spMedal.index = 2;
+      console.log("You did it! I am so proud of you! :)");
+      
+    }else if(this.#spGameScore.value >= 5){
+      this.#spMedal.index = 1;
+      console.log("Awesome! Maybe push a little more for gold?");
+
+    }else if(this.#spGameScore.value >= 3){
+      this.#spMedal.index = 3;
+      console.log("Great! But it can be better!");
+
+    }else {
+      this.#spMedal.index = 0;
+      console.log("Try Again, Buddy.");
+
+    }
     this.#spMedal.hidden = false;
+
     
     //Play Button, also moved, x and y changed.
     this.#spPlayBtn.hidden = false;
@@ -151,7 +187,12 @@ export class TMenu{
     this.#spPlayBtn.y = 300;
 
     //The Score
-    const highScores = [];
+    this.#spFinalScore.value = this.#spGameScore.value;
+
+    if(this.#spGameScore.value > this.#spBestScore.value){
+      //update BestScore
+      this.#spBestScore.value = this.#spGameScore.value;
+    }
     
     this.#spBestScore.visible = true;
     this.#spFinalScore.visible = true;
