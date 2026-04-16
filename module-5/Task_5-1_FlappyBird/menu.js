@@ -1,6 +1,6 @@
 "use strict";
 import { TSprite, TSpriteButton, TSpriteNumber } from "libSprite";
-import { startGame, setSoundMuted, soundMuted, EGameStatus } from "./FlappyBird.mjs";
+import { startGame, setSoundMuted, soundMuted, EGameStatus, resetGame } from "./FlappyBird.mjs";
 import { TSoundFile } from "libSound";
 
 const fnCountDown = "./Media/countDown.mp3";
@@ -20,7 +20,8 @@ export class TMenu{
   #highScores;
   #spFinalScore;
 
-  constructor(aSpcvs, aSPI){
+  constructor(aSpcvs, aSPI, resetFn){
+    this.resetGame= resetFn;
     this.#spTitle = new TSprite(aSpcvs, aSPI.flappyBird, 200, 100);
     this.#spPlayBtn = new TSpriteButton(aSpcvs, aSPI.buttonPlay, 235, 160);
     this.#spPlayBtn.addEventListener("click", this.spPlayBtnClick.bind(this));
@@ -95,6 +96,7 @@ export class TMenu{
 
   spPlayBtnClick(){
     console.log("Click!");
+    resetGame(); //resets game
 
     // this.setSoundMute(true); //Forces the game to mute
 
@@ -150,6 +152,7 @@ export class TMenu{
 
   showGameOver(){
     if(EGameStatus.state === EGameStatus.gameOver){
+
     //Gameboard Appears
     this.#spGameOverBoard.hidden = false;
 
@@ -187,6 +190,8 @@ export class TMenu{
     this.#spPlayBtn.y = 300;
 
     //The Score
+    this.#spGameScore.visible = false;
+
     this.#spFinalScore.value = this.#spGameScore.value;
 
     if(this.#spGameScore.value > this.#spBestScore.value){
@@ -202,5 +207,18 @@ export class TMenu{
     
   }
 
+  resetScore(){
+    this.#spGameScore.value = 0;
+    this.#spGameScore.visible = true;
+
+    this.#spGameOverBoard.hidden = true;
+    this.#spMedal.hidden = true;
+    this.#spBestScore.visible = false;
+    this.#spFinalScore.visible = false;
+
+    this.#spPlayBtn.x = 235;
+    this.#spPlayBtn.y = 160;
+    this.#spPlayBtn.hidden = true;
+  }
+
 }
-  

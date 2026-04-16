@@ -54,6 +54,14 @@ export function startGame(){
   setTimeout(spawnBait, 1000);
 }
 
+ export function resetGame(){
+    EGameStatus.state = EGameStatus.idle;
+    hero.restart();
+    obstacles.length = 0;
+    baits.length = 0;
+    menu.resetScore();
+  }
+
 
 function spawnBait(){
   if(EGameStatus.state === EGameStatus.gaming){

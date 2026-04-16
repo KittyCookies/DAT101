@@ -6,7 +6,7 @@ import { TSoundFile } from "libSound";
 
 const fnFood = "./Media/RYummy.mp3";
 const fnHeroIsDead = "./Media/heroIsDead.mp3";
-const fnGameOver = "./Media/explodes.mp3";
+const fnGameOver = "./Media/explodes.mp3"; //Death sound
 
 export class THero extends TSprite{
     #gravity;
@@ -27,6 +27,7 @@ export class THero extends TSprite{
         this.#sfHeroIsDead = null;
         this.#sfGameOver = null;
     }
+
     eat(){
         if(this.#sfFood === null){
         this.#sfFood = new TSoundFile(fnFood);
@@ -57,7 +58,7 @@ export class THero extends TSprite{
             menu.showGameOver();
 
             this.#sfGameOver = new TSoundFile(fnGameOver);
-
+            
             if(!soundMuted){
             this.#sfGameOver.play();
             }
@@ -78,5 +79,17 @@ export class THero extends TSprite{
     flap(){
         this.#speed = -3.5;
         this.rotation = 0;
+    }
+
+    restart(){
+        EGameStatus.state === EGameStatus.idle;
+        this.x = 50;
+        this.y = 100;
+        this.#gravity = 15 / 100;
+        this.#speed = 0;
+        this.rotation = 0;
+        this.animationSpeed = 3;
+        console.log("HERO RESET.");
+
     }
 }
