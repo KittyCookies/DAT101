@@ -19,6 +19,7 @@ export class TMenu{
   #spBestScore;
   #highScores;
   #spFinalScore;
+  #spGameOverTitle;
 
   constructor(aSpcvs, aSPI, resetFn){
     this.resetGame= resetFn;
@@ -40,6 +41,9 @@ export class TMenu{
 
     this.#spGameOverBoard = new TSprite(aSpcvs, aSPI.gameOver, 180, 180);
     this.#spGameOverBoard.hidden = true;
+
+    this.#spGameOverTitle = new TSprite(aSpcvs, aSPI.gameOverText, 200, 100);
+    this.#spGameOverTitle.hidden = true;
 
     this.#spMedal = new TSprite(aSpcvs, aSPI.medal, 205, 223);
     this.#spMedal.hidden = true;
@@ -76,6 +80,7 @@ export class TMenu{
     this.#spMedal.draw();
     this.#spBestScore.draw();
     this.#spFinalScore.draw();
+    this.#spGameOverTitle.draw();
   }
   
   countDown(){
@@ -155,6 +160,7 @@ export class TMenu{
 
     //Gameboard Appears
     this.#spGameOverBoard.hidden = false;
+    this.#spGameOverTitle.hidden = false;
 
     this.#highScores.push(this.#spGameScore.value);
     //HighScore gets stored when GameOver
@@ -212,6 +218,7 @@ export class TMenu{
     this.#spGameScore.visible = true;
 
     this.#spGameOverBoard.hidden = true;
+    this.#spGameOverTitle.hidden = true;
     this.#spMedal.hidden = true;
     this.#spBestScore.visible = false;
     this.#spFinalScore.visible = false;

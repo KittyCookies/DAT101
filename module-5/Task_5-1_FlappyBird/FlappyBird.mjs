@@ -32,6 +32,7 @@ const SpriteInfoList = {
   infoText:     { x: 0   , y: 630 , width: 200  , height: 55  , count: 2  },
   food:         { x: 0   , y: 696 , width: 70   , height: 65  , count: 34 },
   medal:        { x: 985 , y: 635 , width: 44   , height: 44  , count: 4  },
+  gameOverText: { x: 204  , y: 630 , width: 200  , height: 50  , count: 1  },
 };
 
 export const EGameStatus = { idle: 0, countDown: 1, gaming: 2, heroIsDead: 3, gameOver: 4,
@@ -152,7 +153,7 @@ function loadGame() {
   spcvs.onDraw = drawGame;
 
   //Start animate engine
-  setInterval(animateGame, 1);
+  setInterval(animateGame, 12);
 
   setDayNight({ target: { value: "1" } });
 } // end of loadGame
